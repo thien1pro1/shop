@@ -1,0 +1,53 @@
+<div class="form-group">
+    <label>năm</label>
+    <input [(ngModel)]="year" placeholder="enter report year">
+</div>
+<!-- <div class="form-group">
+    <input type="checkbox" formControlName="quarter1">
+    <label>
+         Quý 1
+      </label>
+      <input type="checkbox" formControlName="quarter2">
+      <label>
+         Quý 2
+      </label>
+      <input type="checkbox" formControlName="quarter3">
+      <label>
+         Quý 3
+      </label>
+      <input type="checkbox" formControlName="quarter4">
+      <label>
+         Quý 4
+      </label>
+      <input type="checkbox" formControlName="year">
+      <label>
+        Cả năm
+      </label>
+</div> -->
+<header>Báo cáo thống kê năm {{year}}</header>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+          <th scope="col">Tên</th>
+          <th *ngFor="let month of getMonthRange()" scope="col">Tháng {{ month }}</th>
+        </tr>
+      </thead>
+    <tbody>
+        <tr *ngFor="let user of users$ | async">
+            <th scope="row">{{user.name}}</th>
+            <td *ngFor="let month of getMonthRange(); let i = index">
+              <input type="number" [(ngModel)]="inputValues[user.id][i]" (blur)="updateTotalSalary(user.id, month)">
+            </td>
+          </tr>
+          
+      <tr>
+        <th scope="row">Tổng lương</th>
+        <td *ngFor="let month of getMonthRange()">
+          {{ totalSalariesByMonth[month.toString()] }}
+        </td>
+      </tr>
+  
+  
+    </tbody>
+  </table>
